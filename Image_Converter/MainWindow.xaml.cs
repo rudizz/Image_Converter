@@ -20,9 +20,13 @@ namespace Image_Converter
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ViewModel viewModel;
         public MainWindow()
         {
             InitializeComponent();
+
+            viewModel = new ViewModel();
+            this.DataContext = viewModel;
         }
     }
 }

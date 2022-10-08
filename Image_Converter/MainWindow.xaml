@@ -4,9 +4,118 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Image_Converter"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Image Converter" 
+        Height="700" Width="auto" MinWidth="500"
+        >
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
         
-    </Grid>
+        <Style TargetType="ProgressBar">
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+
+        <!--Take the data from Enum FrameType-->
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:FrameType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+            <!--Open from-->
+            <Button Content="Open from"
+                    Command="{Binding OpenSourcePath}"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    />
+            <TextBox Text="{Binding SourcePath, FallbackValue=Source Path}"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                     />
+            <!--Save to-->
+            <Button Content="Save to"
+                    Command="{Binding OpenDestinationPath}"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    />
+            <TextBox Text="{Binding DestinationPath, FallbackValue=Destination Path}"
+                     Grid.Row="1"
+                     Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                     />
+            <!--Convert-->
+            <Button Content="Convert"
+                    Command="{Binding ConvertPictures}"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    />
+            <ComboBox Grid.Row="2"
+                      Grid.Column="1"
+                      ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
+                      SelectedItem="{Binding EnmFrameType}"
+                      />
+            <ProgressBar Grid.Row="2"
+                         Grid.Column="2"
+                         Value="{Binding ProgressBarValue}"
+                         Maximum="{Binding ProgressBarMaxValue}"
+                         />
+            <!--ListAllPictures-->
+            <ListBox Grid.Row="3" Grid.ColumnSpan="3"
+                     ItemsSource="{Binding ListAllPictures}"
+                     SelectedItem="{Binding PictureSelected}"
+                     MinHeight="50"
+                     MaxHeight="150"
+                     >
+            </ListBox>
+        </Grid>
+        <!--DisplayedImage-->
+        <!--<Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>--> <!--Per ora non visualizzo l'anteprima della conversione, alla destra dell'immagine originale-->
+            <Image Source="{Binding DisplayedImage}" />
+            <!--<Image Source="{Binding }" />
+        </Grid>-->
+    </DockPanel>
 </Window>
