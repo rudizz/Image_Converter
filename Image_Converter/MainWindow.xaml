@@ -11,10 +11,18 @@
         >
 
     <Window.Resources>
+        <Style TargetType="Border">
+            <Setter Property="BorderBrush" Value="DimGray" />
+            <Setter Property="BorderThickness" Value="3" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Background" Value="#F0F0F0" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="20" />
-            <Setter Property="Margin" Value="10" />
             <Setter Property="Padding" Value="5" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="20" />
@@ -62,33 +70,39 @@
                 <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
             <!--Open from-->
+            <Border Grid.Row="0"
+                    Grid.Column="0"
+                    >
             <Button Content="Open from"
                     Command="{Binding OpenSourcePath}"
-                    Grid.Row="0"
-                    Grid.Column="0"
                     />
+            </Border>
             <TextBox Text="{Binding SourcePath, FallbackValue=Source Path}"
                     Grid.Row="0"
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
                      />
             <!--Save to-->
+            <Border Grid.Row="1"
+                    Grid.Column="0"
+                    >
             <Button Content="Save to"
                     Command="{Binding OpenDestinationPath}"
-                    Grid.Row="1"
-                    Grid.Column="0"
                     />
+            </Border>
             <TextBox Text="{Binding DestinationPath, FallbackValue=Destination Path}"
                      Grid.Row="1"
                      Grid.Column="1"
                     Grid.ColumnSpan="2"
                      />
             <!--Convert-->
+            <Border Grid.Row="2"
+                    Grid.Column="0"
+                    >
             <Button Content="Convert"
                     Command="{Binding ConvertPictures}"
-                    Grid.Row="2"
-                    Grid.Column="0"
                     />
+            </Border>
             <ComboBox Grid.Row="2"
                       Grid.Column="1"
                       ItemsSource="{Binding Source={StaticResource dataFromEnum}}"

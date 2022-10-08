@@ -134,13 +134,21 @@ namespace Image_Converter
         public RelayCommand OpenSourcePath { get; set; }
         private void btnOpenSourcePath_Click(object obj)
         {
-            SourcePath = openDirectory();
-            findAllPicturesIn(SourcePath);
+            var s = openDirectory();
+            if (s != "")
+            {
+                SourcePath = s;
+                findAllPicturesIn(SourcePath);
+            }
         }
         public RelayCommand OpenDestinationPath { get; set; }
         private void btnOpenDestinationPath_Click(object obj)
         {
-            DestinationPath = openDirectory() + "\\" + DEFAULT_DEST_DIRECTORY + "\\";
+            var s = openDirectory();
+            if (s != "")
+            {
+                DestinationPath = s + "\\" + DEFAULT_DEST_DIRECTORY + "\\";
+            }
         }
         public RelayCommand ConvertPictures { get; set; }
         private void btnConvertPictures_Click(object obj)
